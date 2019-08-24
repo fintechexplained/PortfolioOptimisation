@@ -1,4 +1,3 @@
-import scipy.optimize as solver
 import numpy as np
 from scipy.optimize import minimize
 import pandas as pd
@@ -20,8 +19,10 @@ class optimiser:
         extra_data = pd.DataFrame({'Symbol':['Return','Risk','SharpeRatio'], 'MeanReturn':[0,0,0]})
         portfolios_allocations_df = portfolios_allocations_df.append(extra_data, ignore_index=True)
 
+        
+        i = 0
+        counter_to_print =  int(len(self.__targets)/10)
         for my_return in self.__targets:
-            i = 0
             constraints=[]
             constraints.append({'type': 'eq', 'fun': lambda inputs: 1.0 - np.sum(inputs)})
             constraints.append({'type': 'eq', 'args': (returns,),
@@ -45,12 +46,17 @@ class optimiser:
             i = i+1
             portfolio_id = 'Portfolio_'+str(i)
             portfolios_allocations_df[portfolio_id] = portfolio_data
+
+            #printing approx 10x
+            if (i%counter_to_print==0):
+                print('Completed Generating '+str(i)+' Portfolios')
         return portfolios_allocations_df
         
     def solve(self, x0, constraints, bounds, covariance):
         return minimize(self.__risk_function, x0,
                        args=(covariance), method='SLSQP',
-                       options={'disp': False},
+                       #prints covergence msgs
+                       options={'disp': True},
                        constraints=constraints,
                        bounds=bounds)
 

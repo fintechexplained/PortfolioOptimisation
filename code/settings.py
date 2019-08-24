@@ -9,7 +9,7 @@ class settings:
     Optimisersettings = {}
     OptimiserType = 'OLS'
     CompaniesUrl = 'https://en.wikipedia.org/wiki/NASDAQ-100'#'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    NumberOfPortfolios = 10000#00#0000
+    NumberOfPortfolios = 10#0000#0
     API = 'yahoo'
     YearsToGoBack = 3
     RiskFreeRate = 0
@@ -23,8 +23,8 @@ class settings:
     DailyAssetsReturnsFunction = risk_return_calculator.calculate_daily_asset_returns
 
     @staticmethod
-    def get_my_targets(min_risk):
-        return np.arange(min_risk, 1.5, 0.05)
+    def get_my_targets():
+        return np.arange(0, 1.5, 0.05)
 
     @staticmethod
     def get_end_date():

@@ -26,7 +26,7 @@ class chart_plotter:
         max_sharpe_ratio = self.__mc.get_max_sharpe_ratio(df)
         min_risk = self.__mc.get_min_risk(df)
 
-        plt.scatter(df['Risk'], df['Return'],c=df['SharpeRatio'],cmap='RdYlGn', edgecolors='black')
+        plt.scatter(df['Risk'], df['Return'],c=df['SharpeRatio'],cmap='viridis', edgecolors='red')
         x = max_sharpe_ratio['Risk']
         y = max_sharpe_ratio['Return']
         name = max_sharpe_ratio['Portfolio']

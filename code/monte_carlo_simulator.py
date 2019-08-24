@@ -22,11 +22,17 @@ class monte_carlo_simulator:
         portfolio_id = 'EqualAllocationPortfolio'
         self.compute_portfolio_risk_return_sharpe_ratio(portfolio_id, equal_allocations, portfolios_allocations_df, returns, covariance, risk_free_rate) 
 
-        #Generating portfolios        
+        #Generating portfolios
+        counter_to_print =  int(self.__numberOfPortfolios/10)
         for i in range(self.__numberOfPortfolios):
             portfolio_id = 'Portfolio_'+str(i)
             allocations = self.get_random_allocations(portfolio_size)
             self.compute_portfolio_risk_return_sharpe_ratio(portfolio_id, allocations, portfolios_allocations_df,returns, covariance, risk_free_rate)
+            
+            #printing approx 10x
+            if (i%counter_to_print==0):
+                print('Completed Generating '+ str(i) +'Portfolios')
+
         return portfolios_allocations_df
 
     def compute_portfolio_risk_return_sharpe_ratio(self, portfolio_id, allocations, portfolios_allocations_df, returns, covariance, risk_free_rate):
